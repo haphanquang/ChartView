@@ -46,7 +46,7 @@ public struct PieChartCell: View {
         Group {
             path
                 .fill(self.accentColor.linearGradient(from: .bottom, to: .top))
-                .overlay(path.stroke(self.backgroundColor, lineWidth: (startDeg == 0 && endDeg == 0 ? 0 : 2)))
+                .overlay(path.stroke(self.backgroundColor, lineWidth: (startDeg == 0 && endDeg == 0 ? 0 : 0.5)))
                 .scaleEffect(self.show ? 1 : 0)
                 .animation(Animation.spring().delay(Double(self.index) * 0.04))
                 .onAppear {

@@ -13,10 +13,9 @@ public struct RingsChart: View, ChartBase {
 	@EnvironmentObject var data: ChartData
 	@EnvironmentObject var style: ChartStyle
 
-	// TODO - should put background opacity, ring width & spacing as chart style values
+    public init() {}
 	
 	public var body: some View {
-		RingsChartRow(width:10.0, spacing:5.0, chartData: data, style: style)
+		RingsChartRow(width: 10.0, spacing: 5.0, chartData: data, style: style)
 	}
-
 }
