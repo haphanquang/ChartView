@@ -30,6 +30,7 @@ public struct BarChartRow: View {
                    spacing: (geometry.frame(in: .local).width - Constant.spacing) / CGFloat(self.chartData.data.count * 3)) {
                     ForEach(0..<self.chartData.data.count, id: \.self) { index in
                         BarChartCell(value: self.normalizedValue(index: index),
+                                     info: chartData.values[index],
                                      index: index,
                                      width: Float(geometry.frame(in: .local).width - Constant.spacing),
                                      numberOfDataPoints: self.chartData.data.count,

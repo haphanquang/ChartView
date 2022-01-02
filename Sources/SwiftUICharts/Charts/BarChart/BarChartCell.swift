@@ -3,6 +3,7 @@ import SwiftUI
 /// A single vertical bar in a `BarChart`
 public struct BarChartCell: View {
     var value: Double
+    var info: String?
     var index: Int = 0
     var width: Float
     var numberOfDataPoints: Int
@@ -15,13 +16,15 @@ public struct BarChartCell: View {
 
     @State private var firstDisplay: Bool = true
 
-    public init( value: Double,
-                 index: Int = 0,
-                 width: Float,
-                 numberOfDataPoints: Int,
-                 gradientColor: ColorGradient,
-                 touchLocation: CGFloat) {
+    public init(value: Double,
+                info: String? = nil,
+                index: Int = 0,
+                width: Float,
+                numberOfDataPoints: Int,
+                gradientColor: ColorGradient,
+                touchLocation: CGFloat) {
         self.value = value
+        self.info = info
         self.index = index
         self.width = width
         self.numberOfDataPoints = numberOfDataPoints
@@ -33,20 +36,26 @@ public struct BarChartCell: View {
 	///
 	/// Animated when first displayed, using the `firstDisplay` variable, with an increasing delay through the data set.
     public var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 4)
-                .fill(gradientColor.linearGradient(from: .bottom, to: .top))
+        VStack {
+            ZStack {
+                RoundedRectangle(cornerRadius: 4)
+                    .fill(gradientColor.linearGradient(from: .bottom, to: .top))
+            }
+            .frame(width: CGFloat(self.cellWidth))
+            .scaleEffect(CGSize(width: 1, height: self.firstDisplay ? 0.0 : self.value), anchor: .bottom)
+            .onAppear {
+                self.firstDisplay = false
+            }
+            .onDisappear {
+                self.firstDisplay = true
+            }
+            .transition(.slide)
+            .animation(Animation.spring().delay(self.touchLocation < 0 || !firstDisplay ? Double(self.index) * 0.04 : 0))
+            
+            if let info = info {
+                Text(info).font(.caption).foregroundColor(.secondary)
+            }
         }
-        .frame(width: CGFloat(self.cellWidth))
-        .scaleEffect(CGSize(width: 1, height: self.firstDisplay ? 0.0 : self.value), anchor: .bottom)
-        .onAppear {
-            self.firstDisplay = false
-        }
-        .onDisappear {
-            self.firstDisplay = true
-        }
-        .transition(.slide)
-        .animation(Animation.spring().delay(self.touchLocation < 0 || !firstDisplay ? Double(self.index) * 0.04 : 0))
     }
 }
 

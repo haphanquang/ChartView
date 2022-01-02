@@ -66,8 +66,8 @@ struct RingShape: Shape {
 struct Ring: View {
 
 	private static let ShadowColor: Color = Color.black.opacity(0.2)
-	private static let ShadowRadius: CGFloat = 5
-	private static let ShadowOffsetMultiplier: CGFloat = ShadowRadius + 2
+	private static let ShadowRadius: CGFloat = 1
+	private static let ShadowOffsetMultiplier: CGFloat = ShadowRadius + 1
 
 	private let ringWidth: CGFloat
 	private let percent: Double
